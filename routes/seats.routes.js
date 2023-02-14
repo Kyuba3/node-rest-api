@@ -32,8 +32,13 @@ router.route('/seats').post((req, res) => {
   const newEmail = req.body.email;
   const newId = uuid();
 
-  db.seats.push({ id: newId, day: newDay, seat: newSeat, client: newClient, email: newEmail });
-  res.json({ message: 'data is added' })
+  const takenSeat = db.seats.find(seat => seat.day === newDay && seat.seat === newSeat);
+  if (takenSeat) {
+    return res.status(400).json({ message: "The slot is already taken..." });
+  } else {
+    db.seats.push({ id: newId, day: newDay, seat: newSeat, client: newClient, email: newEmail });
+    return res.status(201).json({ message: "Seat booked successfully" });
+  }
 });
 
 router.route('/seats/:id').put((req, res, next) => {
