@@ -74,3 +74,19 @@ exports.delete = async (req, res) => {
     res.status(500).json({ message: err });
   }
 }
+
+exports.getConcertByPerformer = async (req, res) => {
+
+}
+
+exports.getConcertByGenre = async(req,res) => {
+
+}
+
+exports.getConcertByPriceInRange = async(req, res) => {
+
+}
+
+exports.getConcertByDay = async(req, res) => {
+  
+}
