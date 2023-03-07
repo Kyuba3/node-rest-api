@@ -5,13 +5,19 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon server.js",
-    "start:react": "cd client && npm run build"
+    "start:react": "cd client && npm run build",
+    "test": "set NODE_ENV=test&& mocha \"./{,!(node_modules|client)/**/}*.test.js\"",
+    "test:watch": "onchange \"./**/*.js\" -i -k -- yarn test"
   },
   "dependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
     "cors": "^2.8.5",
     "express": "4.17.1",
+    "mocha": "6.2.1",
     "mongodb": "3.3.2",
     "mongoose": "5.7.1",
+    "onchange": "6.1.0",
     "socket.io": "2.2.0",
     "uuid": "^9.0.0",
     "uuidv4": "^6.2.13"
