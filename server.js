@@ -8,12 +8,9 @@ const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
 
-const NODE_ENV = process.env.NODE_ENV;
-if(NODE_ENV === 'production'){
-  dataBase = 'mongodb+srv://Kyuba3:Asidris6@cluster0.lsrtv0c.mongodb.net/NewWaveDB?retryWrites=true&w=majority';
-} else {
-  dataBase = 'mongodb://localhost:27017/NewWaveDB';
-}
+const dbURI = process.env.NODE_ENV === 'production'
+  ? `mongodb+srv://Kyuba3:${process.env.DB_PASS}@cluster0.lsrtv0c.mongodb.net/NewWaveDB?retryWrites=true&w=majority`
+  : 'mongodb://localhost:27017/NewWaveDB';
 
 const app = express();
 
@@ -40,7 +37,7 @@ io.on("connection", (socket) => {
   console.log('New client!' + socket.id);
 });
 
-mongoose.connect(dataBase, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect( dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 db.once('open', () => {
